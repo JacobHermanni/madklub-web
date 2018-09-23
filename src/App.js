@@ -22,7 +22,7 @@ async.series([
       console.log(info);
       console.log('Loaded doc: '+info.title+' by '+info.author.email);
       sheet = info.worksheets[0];
-      console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+      console.log('sheet  1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
       step();
     });
   },
