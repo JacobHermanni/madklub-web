@@ -17,7 +17,6 @@ async.series([
     doc.useServiceAccountAuth(creds, step);
   },
   function getInfoAndWorksheets(step) {
-    console.log(doc);
     doc.getInfo(function(err, info) {
       console.log(info);
       console.log('Loaded doc: '+info.title+' by '+info.author.email);
