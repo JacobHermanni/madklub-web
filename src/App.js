@@ -11,17 +11,19 @@ var sheet;
 async.series([
   function useServiceAcc(step) {
     // see notes below for authentication instructions!
-    var creds = require('./credentials/client.json');
-    // OR, if you cannot save the file locally (like on heroku)   
+    try {
+      var creds = require('./credentials/client.json');
+      // OR, if you cannot save the file locally (like on heroku)   
 
-    doc.useServiceAccountAuth(creds, step);
+      doc.useServiceAccountAuth(creds, step);
+    } catch (e) { }
   },
   function getInfoAndWorksheets(step) {
-    doc.getInfo(function(err, info) {
+    doc.getInfo(function (err, info) {
       console.log(info);
-      console.log('Loaded doc: '+info.title+' by '+info.author.email);
+      console.log('Loaded doc: ' + info.title + ' by ' + info.author.email);
       sheet = info.worksheets[0];
-      console.log('sheet  1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+      console.log('sheet  1: ' + sheet.title + ' ' + sheet.rowCount + 'x' + sheet.colCount);
       step();
     });
   },
@@ -31,11 +33,11 @@ async.series([
       offset: 1,
       limit: 20,
       orderby: 'col2'
-    }, function( err, rows ){
-      console.log('Read '+rows.length+' rows');
+    }, function (err, rows) {
+      console.log('Read ' + rows.length + ' rows');
       console.log("rows:", rows);
       // the row is an object with keys set by the column headers
-      
+
       step();
     });
   },
@@ -44,43 +46,43 @@ async.series([
       'min-row': 6,
       'max-row': 6,
       'return-empty': true
-    }, function(err, cells) {
+    }, function (err, cells) {
       var cell = cells[0];
-      console.log('from cells[0]: Cell.row: '+cell.row+' cell.col:'+cell.col+' cell.value: '+cell.value);
+      console.log('from cells[0]: Cell.row: ' + cell.row + ' cell.col:' + cell.col + ' cell.value: ' + cell.value);
 
-      
+
       // cells have a value, numericValue, and formula
       cell.value == 2;
       //cell.numericValue == 1;
       //cell.formula == '=ROW()';
-      cell.setValue("2aanew", (callback) => console.log(callback) );
+      cell.setValue("2aanew", (callback) => console.log(callback));
       console.log("gets here after value change?");
 
       // updating `value` is "smart" and generally handles things for you
       // cell.value = 123;
       // cell.value = '=A1+B2'
-      
+
 
       // bulk updates make it easy to update many cells at once
       // cells[0].value = 1;
       // cells[1].value = 2;
       // cells[2].formula = '=A1+B1';
-      
+
 
       step();
     });
-  },   
-  
-], function(err){
-    if( err ) {
-      console.log('Error: '+err);
-    }
+  },
+
+], function (err) {
+  if (err) {
+    console.log('Error: ' + err);
+  }
 });
 
 
 class App extends Component {
   render() {
-    
+
     return (
       <div className="App">
         <header className="App-header">
