@@ -11,7 +11,7 @@ var sheet;
 async.series([
   function useServiceAcc(step) {
     // see notes below for authentication instructions!
-    var creds = require('./credentials/madklubapp-882185d10dcb.json');
+    var creds = require('./credentials/client.json');
     // OR, if you cannot save the file locally (like on heroku)   
 
     doc.useServiceAccountAuth(creds, step);
@@ -53,7 +53,7 @@ async.series([
       cell.value == 2;
       //cell.numericValue == 1;
       //cell.formula == '=ROW()';
-      cell.setValue("2aa", (callback) => console.log(callback) );
+      cell.setValue("2aanew", (callback) => console.log(callback) );
       console.log("gets here after value change?");
 
       // updating `value` is "smart" and generally handles things for you
