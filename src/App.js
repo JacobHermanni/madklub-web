@@ -11,7 +11,7 @@ var sheet;
 async.series([
   function useServiceAcc(step) {
     // see notes below for authentication instructions!
-    var creds = require('./credentials/MadklubApp-d7dc96a6b3ba.json');
+    var creds = require('./credentials/madklubapp-882185d10dcb.json');
     // OR, if you cannot save the file locally (like on heroku)   
 
     doc.useServiceAccountAuth(creds, step);
@@ -41,27 +41,30 @@ async.series([
   },
   function workingWithCells(step) {
     sheet.getCells({
-      'min-row': 1,
-      'max-row': 5,
+      'min-row': 6,
+      'max-row': 6,
       'return-empty': true
     }, function(err, cells) {
       var cell = cells[0];
       console.log('from cells[0]: Cell.row: '+cell.row+' cell.col:'+cell.col+' cell.value: '+cell.value);
 
+      
       // cells have a value, numericValue, and formula
-      cell.value == '1'
-      cell.numericValue == 1;
-      cell.formula == '=ROW()';
+      cell.value == 2;
+      //cell.numericValue == 1;
+      //cell.formula == '=ROW()';
+      cell.setValue("2aa", (callback) => console.log(callback) );
+      console.log("gets here after value change?");
 
       // updating `value` is "smart" and generally handles things for you
-      cell.value = 123;
-      cell.value = '=A1+B2'
+      // cell.value = 123;
+      // cell.value = '=A1+B2'
       
 
       // bulk updates make it easy to update many cells at once
-      cells[0].value = 1;
-      cells[1].value = 2;
-      cells[2].formula = '=A1+B1';
+      // cells[0].value = 1;
+      // cells[1].value = 2;
+      // cells[2].formula = '=A1+B1';
       
 
       step();
