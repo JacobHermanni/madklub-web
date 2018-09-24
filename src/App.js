@@ -3,6 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 var GoogleSpreadsheet = require('google-spreadsheet');
 var async = require('async');
+const netlifyIdentity = require("netlify-identity-widget");
+
+
+netlifyIdentity.init({});
+
+netlifyIdentity.open(); // open the modal
+netlifyIdentity.open("login"); // open the modal to the login tab
+netlifyIdentity.on("login", user => console.log(user));
 
 // spreadsheet key is the long id in the sheets URL
 var doc = new GoogleSpreadsheet('166fSi7fmm7yeYSMVjvCrMp1DIoZLxn3vIKjQO9EjKCE');
@@ -90,7 +98,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          Tos get started, edit <code>src/App.js</code> and save to reload.
         </p>
       </div>
     );
