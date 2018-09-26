@@ -2,6 +2,7 @@
   "name": "madklub-web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://localhost:3001",
   "dependencies": {
     "google-spreadsheet": "^2.0.5",
     "netlify-identity-widget": "^1.4.14",
