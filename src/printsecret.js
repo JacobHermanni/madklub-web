@@ -1,28 +1,22 @@
-var secret = undefined;
+export var config = undefined;
+export var API = undefined;
 
-var test = () => {
-    if (1 === 1) return "one";
-}
-
-export function initsecret(callback) {
+export function initConfig(callback) {
     if (process.env.NODE_ENV === 'development') {
-        console.log("env var was dev");
-        import('./credentials/secret.js').then((devsecrets) => {
-            secret = devsecrets.devsecret;
-            console.log("secret set to dev", secret);
-            console.log("is this firing before secret set to dev??");
-            if (callback) { console.log("callback should happen now:"); callback(); }
+        import('./config').then((Config) => {
+            config = { clientId: Config.Config.clientId };
+            API = { key: Config.API.key };
+            if (callback) { console.log("callback firing."); callback(); }
         });
     }
     else if (process.env.NODE_ENV === 'production') {
-        secret = process.env.REACT_APP_KEY;
-        console.log("secret set to prod", secret);
-        console.log("is this firing before secret set to dev??");
-        if (callback) { console.log("callback should happen now:"); callback(); }
+        config = { clientId: process.env.REACT_APP_CLIENTID };
+        API = { key: process.env.REACT_APP_KEY };
+        if (callback) { callback(); }
     }
+    else { console.log("no env var found at all!?"); }
 }
 
 export function secretprint() {
-    console.log("attempting to print secret", secret);
-    console.log("also test is", test());
+    console.log("attempting to print secret", config, " api: ", API);
 }
