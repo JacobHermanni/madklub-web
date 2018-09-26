@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { secretprint, initsecret } from './printsecret';
+
+
 
 class App extends Component {
   render() {
 
     return (
       <div className="App">
+        {initsecret(secretprint)}
         {console.log("env")}
         {console.log(process.env.NODE_ENV)}
         {console.log("process.env", process.env)}
@@ -20,6 +24,7 @@ class App extends Component {
         </p>
         <span>current env: {process.env.NODE_ENV}</span>
         <span>key: {process.env.REACT_APP_KEY}</span>
+        <button onClick={() => secretprint()}>print secret</button>
       </div>
     );
   }
